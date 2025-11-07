@@ -1,4 +1,4 @@
-package shop;
+package com.shop;
 
 public class ShopApp {
     public static void main(String[] args) {

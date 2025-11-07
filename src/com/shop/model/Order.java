@@ -1,4 +1,4 @@
-package shop.model;
+package com.shop.model;
 
 import com.shop.manager.ShopManager;
 import com.shop.utils.IdGenerator;

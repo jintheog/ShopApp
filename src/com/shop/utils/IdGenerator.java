@@ -1,4 +1,4 @@
-package shop.utils;
+package com.shop.utils;
 
 public class IdGenerator {
     private static IdGenerator instance;  // 싱글톤 인스턴스

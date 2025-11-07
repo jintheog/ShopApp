@@ -1,4 +1,4 @@
-package shop.manager;
+package com.shop.manager;
 
 import com.shop.model.Order;
 import com.shop.model.Product;
