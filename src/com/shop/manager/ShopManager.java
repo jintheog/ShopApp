@@ -37,30 +37,39 @@ public class ShopManager {
         return null;
     }
     public Product[] searchProductsByName(String keyword){
-        Product[] temp = new Product[productCount];
-        int resultCount = 0;
+        Product[]  temp = new Product[50];
+        int tempCount = 0;
         for(int i = 0; i < productCount; i++){
             boolean check = products[i].getName().toLowerCase().contains(keyword.toLowerCase());
             if(check){
-                temp[resultCount]= products[i];
-                resultCount++;
+                temp[tempCount]= products[i];
+                tempCount++;
             }
         }
-        return java.util.Arrays.copyOf(temp, resultCount);
+        Product[] searchedProducts = new Product[tempCount];
+        for(int i = 0; i < searchedProducts.length; i++){
+            searchedProducts[i] = temp[i];
+        }
+        return searchedProducts;
     }
 
     public Product[] searchProductsByCategory(String category){
-        Product[] temp = new Product[productCount];
-        int resultCount = 0;
+        Product[]  temp = new Product[50];
+        int tempCount = 0;
+
         for(int i = 0; i < productCount; i++){
             boolean check = products[i].getCategory().equalsIgnoreCase(category);
             if(check){
-                temp[resultCount]= products[i];
-                resultCount++;
+                temp[tempCount] = products[i];
+                tempCount++;
             }
-
         }
-        return java.util.Arrays.copyOf(temp, resultCount);
+        Product[] searchedProducts = new Product[tempCount];
+        for(int i = 0; i < searchedProducts.length; i++){
+            searchedProducts[i] = temp[i];
+        }
+        System.out.println(Arrays.toString(searchedProducts));
+        return searchedProducts;
     }
 
     public void printAllProducts(){
@@ -91,7 +100,7 @@ public class ShopManager {
         }
 
         order.addItem(productId, quantity);
-
+        System.out.println("주문이 추가 되었습니다. ");
 
     }
 
@@ -176,8 +185,4 @@ public class ShopManager {
 
         }
     }
-
-
-
-
 }
