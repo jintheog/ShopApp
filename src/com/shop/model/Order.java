@@ -46,15 +46,13 @@ public class Order {
     }
 
     public void addItem(String productId, int quantity){
-        if(this.itemCount >= productIds.length){
-            System.out.println("주문 하신 상품의 무언가가 꽉찼습니다");
+        if(itemCount >= productIds.length){
+            System.out.println("더 이상 상품을 추가 할 수 없습니다.");
             return;
         }
-        for(int i = 0; i < productIds.length; i++){
-            if(quantities[i] < 1){
-                System.out.println("주문하신 상품의 수량이 없습니다.");
-                return;
-            }
+        if(quantity < 1){
+            System.out.println("0개를 주문 할 수 없습니다.");
+            return;
         }
         productIds[itemCount] = productId;
         quantities[itemCount] = quantity;
@@ -68,8 +66,8 @@ public class Order {
             totalAmount += product.getPrice() * quantities[i]
         * */
         totalAmount = 0;
-        for(int i = 0; i < itemCount - 1; i++){
-            productIds[i].manager.findProductById();
+        for(int i = 0; i < itemCount; i++){
+            Product product = manager.findProductById(productIds[i]);
             totalAmount += product.getPrice() * quantities[i];
         }
     }

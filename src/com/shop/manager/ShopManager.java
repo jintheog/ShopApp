@@ -3,6 +3,8 @@ package com.shop.manager;
 import com.shop.model.Order;
 import com.shop.model.Product;
 
+import java.util.Arrays;
+
 public class ShopManager {
     private Product[] products;  // 상품 배열 (크기 50)
     private int productCount;    // 현재 등록된 상품 수
@@ -37,26 +39,39 @@ public class ShopManager {
         return null;
     }
     public Product[] searchProductsByName(String keyword){
-        Product[] temp = new Product[productCount];
-
+        Product[]  temp = new Product[50];
+        int tempCount = 0;
         for(int i = 0; i < productCount; i++){
             boolean check = products[i].getName().toLowerCase().contains(keyword.toLowerCase());
             if(check){
-                temp[i]= products[i];
+                temp[tempCount]= products[i];
+                tempCount++;
             }
         }
-        return temp;
+        Product[] searchedProducts = new Product[tempCount];
+        for(int i = 0; i < searchedProducts.length; i++){
+            searchedProducts[i] = temp[i];
+        }
+        return searchedProducts;
     }
 
     public Product[] searchProductsByCategory(String category){
-        Product[] temp = new Product[productCount];
+        Product[]  temp = new Product[50];
+        int tempCount = 0;
+
         for(int i = 0; i < productCount; i++){
             boolean check = products[i].getCategory().equalsIgnoreCase(category);
             if(check){
-                temp[i]= products[i];
+                temp[tempCount] = products[i];
+                tempCount++;
             }
         }
-        return temp;
+        Product[] searchedProducts = new Product[tempCount];
+        for(int i = 0; i < searchedProducts.length; i++){
+            searchedProducts[i] = temp[i];
+        }
+        System.out.println(Arrays.toString(searchedProducts));
+        return searchedProducts;
     }
 
     public void printAllProducts(){
@@ -95,8 +110,38 @@ public class ShopManager {
         order.calculateTotal(this);
         System.out.println(order);
 
-        for(int i = 0; i < orderCount; i++){
+        String[] productIds = order.getProductIds();
+        int[] quantities = order.getQuantities();
+        int itemCount = order.getItemCount();
 
+        for(int i = 0; i < itemCount; i++){
+
+            String productId = productIds[i];
+
+            Product product = findProductById(productId);
+
+            product.decreaseStock(quantities[i]);
+        }
+        order.complete();
+
+        orders[orderCount] = order;
+        orderCount++;
+
+        System.out.println("결제가 완료되었습니다. 총 금액: " + order.getTotalAmount() + "원");
+    }
+    public Order findOrderById(String orderId){
+        for(int i = 0; i < orderCount; i++){
+            if(orders[i].getOrderId().equals(orderId)){
+                return orders[i];
+            }
+        }
+        return null;
+    }
+
+    public void printAllOrders(){
+        for(int i = 0; i < orderCount; i++){
+            System.out.println((i+1) + ". [" + orders[i].getOrderId() + "] " + orders[i].getTotalAmount() + "원 (" + orders[i].getStatus() + ")");
         }
     }
+
 }
