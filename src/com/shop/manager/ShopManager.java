@@ -125,7 +125,6 @@ public class ShopManager {
         order.complete();
 
         orders[orderCount] = order;
-        orderCount++;
 
         System.out.println("결제가 완료되었습니다. 총 금액: " + order.getTotalAmount() + "원");
     }
