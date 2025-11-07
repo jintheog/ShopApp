@@ -108,7 +108,8 @@ public class ShopManager {
 
     public void processOrder(Order order) {
         order.calculateTotal(this);
-        System.out.println(order);
+
+
 
         String[] productIds = order.getProductIds();
         int[] quantities = order.getQuantities();
@@ -125,6 +126,7 @@ public class ShopManager {
         order.complete();
 
         orders[orderCount] = order;
+        System.out.println("===주문 내역===");
 
         System.out.println("결제가 완료되었습니다. 총 금액: " + order.getTotalAmount() + "원");
     }
