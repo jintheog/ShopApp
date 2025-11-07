@@ -68,7 +68,6 @@ public class ShopManager {
         for(int i = 0; i < searchedProducts.length; i++){
             searchedProducts[i] = temp[i];
         }
-        System.out.println(Arrays.toString(searchedProducts));
         return searchedProducts;
     }
 
